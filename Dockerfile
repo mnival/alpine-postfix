@@ -3,15 +3,19 @@ FROM alpine:${ALPINE_VERSION}
 
 ARG BUILD_DATE
 ARG VCS_REF
-ARG BUILD_VERSION
+ARG VERSION
 
-# Labels
-LABEL maintainer "Michael Nival <docker@mn-home.fr>"
-LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.build-date=${BUILD_DATE}
-LABEL org.label-schema.vcs-ref=${VCS_REF}
-LABEL org.label-schema.version=${BUILD_VERSION}
-
+# http://label-schema.org/rc1/
+LABEL org.label-schema.build-date=${BUILD_DATE} \
+	org.label-schema.name="alpine-postfix" \
+	org.label-schema.description="Alpine image version ${ALPINE_VERSION} with postfix" \
+	org.label-schema.url="https://github.com/mnival/alpine-postfix/" \
+	org.label-schema.vcs-ref=${VCS_REF} \
+	org.label-schema.vcs-url="https://github.com/mnival/alpine-postfix/" \
+	org.label-schema.vendor="Michael Nival" \
+	org.label-schema.version=${VERSION} \
+	org.label-schema.schema-version="1.0"
+	
 RUN set -ex; \
 	apk upgrade --no-cache --update; \
 	apk add --no-cache postfix postfix-pcre cyrus-sasl-login ca-certificates; \
