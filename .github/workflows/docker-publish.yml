@@ -76,7 +76,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Login to GitHub Packages Docker Registry
-        run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login ghcr.io -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login registry.hub.docker.com -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
       - name: Push image hub
         run: |
