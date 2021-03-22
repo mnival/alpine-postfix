@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.authors="Michael Nival" \
 	org.opencontainers.image.url="https://github.com/mnival/alpine-postfix/" \
 	org.opencontainers.image.documentation="https://github.com/mnival/alpine-postfix/" \
 	org.opencontainers.image.source="https://github.com/mnival/alpine-postfix/" \
-	org.opencontainers.image.description="Alpine image version ${ALPINE_VERSION} with postfix"
+	org.opencontainers.image.description="Alpine image with postfix"
 	
 RUN set -ex; \
 	apk upgrade --no-cache --update; \
