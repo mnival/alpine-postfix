@@ -5,8 +5,8 @@ if [[ "${SOURCE_BRANCH/-*/}" =~ ^[0-9][0-9.]*$ ]]; then
 	VERSION=${SOURCE_BRANCH/-*/}
 fi
 
-if [[ "${SOURCE_BRANCH}" == "main" ]]; then
-	SOURCE_BRANCH="latest"
+if [[ "${VERSION}" == "3.13" ]]; then
+	EXTRA_TAG="-t alpine-postfix:latest"
 fi
  
 [ -n "$IMAGE_NAME" ] || IMAGE_NAME=alpine-postfix:${SOURCE_BRANCH}
