@@ -1,20 +1,12 @@
 ARG ALPINE_VERSION=latest
 FROM alpine:${ALPINE_VERSION}
 
-ARG BUILD_DATE
-ARG VCS_REF
-ARG VERSION
-
-# http://label-schema.org/rc1/
-LABEL org.label-schema.build-date=${BUILD_DATE} \
-	org.label-schema.name="alpine-postfix" \
-	org.label-schema.description="Alpine image version ${ALPINE_VERSION} with postfix" \
-	org.label-schema.url="https://github.com/mnival/alpine-postfix/" \
-	org.label-schema.vcs-ref=${VCS_REF} \
-	org.label-schema.vcs-url="https://github.com/mnival/alpine-postfix/" \
-	org.label-schema.vendor="Michael Nival" \
-	org.label-schema.version=${VERSION} \
-	org.label-schema.schema-version="1.0"
+# https://github.com/opencontainers/image-spec/blob/master/annotations.md
+LABEL org.opencontainers.image.authors="Michael Nival" \
+	org.opencontainers.image.url="https://github.com/mnival/alpine-postfix/" \
+	org.opencontainers.image.documentation="https://github.com/mnival/alpine-postfix/" \
+	org.opencontainers.image.source="https://github.com/mnival/alpine-postfix/" \
+	org.opencontainers.image.description="Alpine image version ${ALPINE_VERSION} with postfix"
 	
 RUN set -ex; \
 	apk upgrade --no-cache --update; \

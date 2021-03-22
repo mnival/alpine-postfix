@@ -1,7 +1,6 @@
 #!/bin/bash -xe
 . ./hooks/env
 docker build \
-	--build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
-	--build-arg "VCS_REF=${VCS_REF}" \
-	${VERSION:+--build-arg "VERSION=$VERSION" --build-arg "ALPINE_VERSION=${VERSION}"} \
+	--label org.opencontainers.image.revision="${VCS_REF}" \
+	${VERSION:+--build-arg "ALPINE_VERSION=${VERSION}"} \
 	-t ${IMAGE_NAME} .
