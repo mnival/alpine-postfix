@@ -27,14 +27,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-            
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
         with:
@@ -57,5 +49,5 @@ jobs:
           tags: |
             ${{ github.actor }}/alpine-postfix:test
             ghcr.io/${{ github.actor }}/alpine-postfix:test
-          cache-from: type=registry,ref=ghcr.io/${{ github.actor }}/alpine-postfix:test
+          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:test
           cache-to: type=inline
