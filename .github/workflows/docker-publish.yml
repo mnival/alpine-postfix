@@ -18,12 +18,36 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        alpine-version: [edge, latest, 3.13]
+        alpine-version: [edge, 3.13]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Calculate Docker image tags
+        id: tags
+        env:
+          DOCKER_IMAGES: "${{ github.actor }} ghcr.io/${{ github.actor }}/alpine-postfix"
+          CACHE_IMAGES: "${{ github.actor }}"
+        run: |
+          TAGS=()
+          CACHES=()
+          COUNT=0
+          for image in $DOCKER_IMAGES; do
+            TAGS+=("${image}:${{ matrix.alpine-version }}")
+            if [[ ${COUNT} -eq 0 ]; then
+              CACHES+=("${image}:${{ matrix.alpine-version }}")
+            fi
+            if [[ "${{ matrix.alpine-version }}" == "3.13" ]]; then
+              TAGS+=("${image}:latest")
+              if [[ ${COUNT} -eq 0 ]; then
+                CACHES+=("${image}:latest")
+              fi
+            fi
+          done
+          echo ::set-output name=tags::$(IFS=,; echo "${TAGS[*]}")
+          echo ::set-output name=caches::$(IFS=,; echo "${CACHES[*]}")
+          
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -49,12 +73,8 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: |
-            ${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
-            ghcr.io/${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
-          cache-from: |
-            type=registry,ref=${{ github.actor }}/alpine-postfix:latest
-            type=registry,ref=${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
+          tags: ${{ steps.tags.outputs.tags }}
+          cache-from: ${{ steps.tags.outputs.caches }}
           cache-to: type=inline
           build-args: |
             ALPINE_VERSION=${{ matrix.alpine-version }}
