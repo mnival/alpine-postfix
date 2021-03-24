@@ -27,8 +27,7 @@ jobs:
       - name: Calculate Docker image tags
         id: tags
         env:
-          DOCKER_IMAGES: "${{ github.actor }} ghcr.io/${{ github.actor }}/alpine-postfix"
-          CACHE_IMAGES: "${{ github.actor }}"
+          DOCKER_IMAGES: "${{ github.actor }}/alpine-postfix ghcr.io/${{ github.actor }}/alpine-postfix"
         run: |
           TAGS=()
           CACHES=()
