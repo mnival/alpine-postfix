@@ -52,5 +52,7 @@ jobs:
           tags: |
             ${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
             ghcr.io/${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
-          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
+          cache-from: |
+            type=registry,ref=${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
+            type=registry,ref=${{ github.actor }}/alpine-postfix:latest
           cache-to: type=inline
