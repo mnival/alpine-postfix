@@ -5,8 +5,8 @@ on:
     # Publish `main` as Docker `latest` image.
     branches:
       - mnival-patch-1
-    paths-ignore:
-      - '.github/workflows/**'
+#    paths-ignore:
+#      - '.github/workflows/**'
     
 #  schedule:
 #    - cron:  '15 00 * * *'
