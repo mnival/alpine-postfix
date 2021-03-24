@@ -5,6 +5,11 @@ on:
     # Publish `main` as Docker `latest` image.
     branches:
       - mnival-patch-1
+    paths-ignore:
+      - '.github/workflows/**'
+    
+#  schedule:
+#    - cron:  '15 00 * * *'
 
 jobs:
   # Push image to GitHub Packages.
@@ -13,8 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        alpine-version: [latest, 3.13]
-    if: github.event_name == 'push'
+        alpine-version: [edge, latest, 3.13]
 
     steps:
       - name: Checkout
