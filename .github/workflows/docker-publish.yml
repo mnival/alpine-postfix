@@ -49,5 +49,5 @@ jobs:
           tags: |
             ${{ github.actor }}/alpine-postfix:test
             ghcr.io/${{ github.actor }}/alpine-postfix:test
-          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:test
+          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:test,${{ github.actor }}/alpine-postfix:latest
           cache-to: type=inline
