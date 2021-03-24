@@ -53,9 +53,10 @@ jobs:
             ${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
             ghcr.io/${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
           cache-from: |
-            type=registry,ref=${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
             type=registry,ref=${{ github.actor }}/alpine-postfix:latest
+            type=registry,ref=${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
           cache-to: type=inline
-          build-args: ${{ matrix.alpine-version }}
+          build-args: |
+            ALPINE_VERSION=${{ matrix.alpine-version }}
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
