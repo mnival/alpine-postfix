@@ -1,6 +1,7 @@
 ARG ALPINE_VERSION=latest
 FROM alpine:${ALPINE_VERSION}
 
+# Just for test
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL org.opencontainers.image.authors="Michael Nival" \
 	org.opencontainers.image.url="https://github.com/mnival/alpine-postfix/" \
