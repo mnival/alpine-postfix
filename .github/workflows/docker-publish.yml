@@ -15,6 +15,9 @@ jobs:
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        alpine-version: [latest, 3.13]
     if: github.event_name == 'push'
 
     steps:
@@ -47,8 +50,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ github.actor }}/alpine-postfix:test
-            ghcr.io/${{ github.actor }}/alpine-postfix:test
-          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:test
-          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:latest
+            ${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
+            ghcr.io/${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
+          cache-from: type=registry,ref=${{ github.actor }}/alpine-postfix:${{ matrix.alpine-version }}
           cache-to: type=inline
