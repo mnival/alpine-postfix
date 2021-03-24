@@ -35,12 +35,12 @@ jobs:
           COUNT=0
           for image in $DOCKER_IMAGES; do
             TAGS+=("${image}:${{ matrix.alpine-version }}")
-            if [[ ${COUNT} -eq 0 ]; then
+            if [[ ${COUNT} -eq 0 ]]; then
               CACHES+=("${image}:${{ matrix.alpine-version }}")
             fi
             if [[ "${{ matrix.alpine-version }}" == "3.13" ]]; then
               TAGS+=("${image}:latest")
-              if [[ ${COUNT} -eq 0 ]; then
+              if [[ ${COUNT} -eq 0 ]]; then
                 CACHES+=("${image}:latest")
               fi
             fi
