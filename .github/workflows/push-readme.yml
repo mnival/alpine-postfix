@@ -1,6 +1,8 @@
 name: Push README on dockerhub
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
