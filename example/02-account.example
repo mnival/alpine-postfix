@@ -1,0 +1,5 @@
+#!/bin/ash
+
+# Generate application password (https://support.google.com/accounts/answer/185833)
+printf '[smtp.gmail.com]:587	user.name@gmail.com:password\n' > /etc/postfix/sasl_passwd
+postmap /etc/postfix/sasl_passwd

@@ -1,0 +1,3 @@
+#!/bin/ash
+
+postconf -e "mynetworks = 127.0.0.1/32 $(hostname -i | sed 's/[0-9]\+$/0/')/24"
