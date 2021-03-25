@@ -42,6 +42,7 @@ jobs:
                 CACHES+=("${image}:latest")
               fi
             fi
+            ((COUNT+=1))
           done
           echo ::set-output name=tags::$(IFS=,; echo "${TAGS[*]}")
           echo ::set-output name=caches::$(IFS=,; echo "${CACHES[*]}")
