@@ -17,7 +17,6 @@ cp -p example/02-account.example example/02-account.sh
 
 * Launch container
 ```bash
-chmod +x example/*.sh
 docker run -d -v $(pwd)/spool-postfix:/var/spool/postfix -v $(pwd)/example/:/docker-entrypoint.d/ --name mail mnival/alpine-postfix
 ```
 
