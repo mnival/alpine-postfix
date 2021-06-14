@@ -28,7 +28,7 @@ jobs:
       - name: Calculate Docker image tags and caches
         id: tags_caches
         env:
-          DOCKER_IMAGES: "${{ github.actor }}/alpine-postfix ghcr.io/${{ github.actor }}/alpine-postfix"
+          DOCKER_IMAGES: "${{ github.repository }} ghcr.io/${{ github.repository }} quay.io/${{ github.repository }}"
         run: |
           TAGS=()
           CACHES=()
@@ -42,6 +42,7 @@ jobs:
               TAGS+=("${image}:latest")
               if [[ ${COUNT} -eq 0 ]]; then
                 CACHES+=("${image}:latest")
+                CACHES+=("${image}:${GITHUB_SHA::8}")
               fi
             fi
             ((COUNT+=1))
@@ -68,11 +69,17 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+      - name: Login to Quay.io
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.QUAY_IO_USERNAME }}
+          password: ${{ secrets.QUAY_IO_TOKEN }}
+
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
-          platforms: linux/386,linux/amd64
+          platforms: linux/amd64
           push: true
           tags: ${{ steps.tags_caches.outputs.tags }}
           cache-from: ${{ steps.tags_caches.outputs.caches }}
