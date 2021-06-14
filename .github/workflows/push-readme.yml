@@ -22,5 +22,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          repository: ${{ github.actor }}/alpine-postfix
+          repository: ${{ github.repository }}
           readme: "./README.md"
