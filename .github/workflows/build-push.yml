@@ -42,7 +42,7 @@ jobs:
             fi
             if [[ "${{ matrix.alpine-version }}" == "3.13" ]]; then
               TAGS+=("${image}:latest")
-              TAGS+=("${image}:${GITHUB_SHA::8}")
+              TAGS+=("${image}:${GITHUB_SHA::7}")
               if [[ ${COUNT} -eq 0 ]]; then
                 CACHES+=("${image}:latest")
               fi
