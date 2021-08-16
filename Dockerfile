@@ -1,5 +1,4 @@
-ARG ALPINE_VERSION=latest
-FROM alpine:${ALPINE_VERSION}
+FROM alpine:3.14.1
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL org.opencontainers.image.authors="Michael Nival" \
