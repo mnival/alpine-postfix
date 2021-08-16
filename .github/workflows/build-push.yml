@@ -19,9 +19,6 @@ jobs:
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        alpine-version: [edge, 3.13]
 
     steps:
       - name: Checkout
@@ -36,16 +33,10 @@ jobs:
           CACHES=()
           COUNT=0
           for image in $DOCKER_IMAGES; do
-            TAGS+=("${image}:${{ matrix.alpine-version }}")
+            TAGS+=("${image}:latest")
+            TAGS+=("${image}:${GITHUB_SHA::7}")
             if [[ ${COUNT} -eq 0 ]]; then
-              CACHES+=("${image}:${{ matrix.alpine-version }}")
-            fi
-            if [[ "${{ matrix.alpine-version }}" == "3.13" ]]; then
-              TAGS+=("${image}:latest")
-              TAGS+=("${image}:${GITHUB_SHA::7}")
-              if [[ ${COUNT} -eq 0 ]]; then
-                CACHES+=("${image}:latest")
-              fi
+              CACHES+=("${image}:latest")
             fi
             ((COUNT+=1))
           done
@@ -87,7 +78,5 @@ jobs:
           tags: ${{ steps.tags_caches.outputs.tags }}
           cache-from: ${{ steps.tags_caches.outputs.caches }}
           cache-to: type=inline
-          build-args: |
-            ALPINE_VERSION=${{ matrix.alpine-version }}
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}
