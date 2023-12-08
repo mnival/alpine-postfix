@@ -1,4 +1,4 @@
-FROM alpine:3.18.3
+FROM alpine:3.19.0
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL org.opencontainers.image.authors="Michael Nival" \
